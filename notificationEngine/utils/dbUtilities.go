@@ -1,4 +1,4 @@
-package main
+package utils
 
 import (
 	"database/sql"
@@ -7,11 +7,11 @@ import (
 	_ "github.com/go-sql-driver/mysql"
 )
 
-func writeDBRecordsIntoMachineTable(myvalue string, mykey string) {
+func WriteDBRecordsIntoMachineTable(myvalue string, mykey string) {
 
 }
 
-func getTotalRecordsCount(mykey string, namespace string) {
+func GetTotalRecordsCount(mykey string, namespace string) {
 	db, err := sql.Open("mysql", "root:@tcp(127.0.0.1:3306)/loadAggregator")
 	var count int
 	if err != nil {

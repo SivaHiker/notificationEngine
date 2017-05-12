@@ -1,6 +1,6 @@
-package main
+package structConfigs
 
-type assertionConfig struct {
+type AssertionConfig struct {
 	Attributes []struct {
 		Name           string `json:"Name"`
 		Value          string `json:"Value"`

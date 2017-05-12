@@ -1,4 +1,4 @@
-package main
+package utils
 
 import (
 	"fmt"
@@ -6,7 +6,7 @@ import (
 	"time"
 )
 
-func getTimeinSeconds(seconds string) time.Time {
+func GetTimeinSeconds(seconds string) time.Time {
 	i, err := strconv.ParseInt(seconds, 10, 64)
 	if err != nil {
 		panic(err)

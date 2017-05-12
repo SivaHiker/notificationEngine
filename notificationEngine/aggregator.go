@@ -9,6 +9,8 @@ import (
 	"time"
 
 	"github.com/goamz/goamz/cloudwatch"
+	conf "github.com/sivahiker/notificationEngine/structConfigs"
+	"github.com/sivahiker/notificationEngine/utils"
 )
 
 func main() {
@@ -17,22 +19,22 @@ func main() {
 	var endTime time.Time
 	var st = "1494533966"
 	var et = "1494537566"
-	getTotalRecordsCount("sd", "asd")
+	utils.GetTotalRecordsCount("sd", "asd")
 	if len(os.Args) == 2 {
-		startTime = getTimeinSeconds(st)
-		endTime = getTimeinSeconds(et)
+		startTime = utils.GetTimeinSeconds(st)
+		endTime = utils.GetTimeinSeconds(et)
 		fmt.Println(startTime)
 		fmt.Println(endTime)
 	}
-	startTime = getTimeinSeconds(st)
-	endTime = getTimeinSeconds(et)
+	startTime = utils.GetTimeinSeconds(st)
+	endTime = utils.GetTimeinSeconds(et)
 	fmt.Println(startTime)
 	fmt.Println(endTime)
 	workingDirPath, err := os.Getwd()
-	machinesData, err := ioutil.ReadFile(workingDirPath + "/machinesConfig.json")
-	attributesData, err := ioutil.ReadFile(workingDirPath + "/assertionConfig.json")
-	machines := machinesConfig{}
-	attributes := assertionConfig{}
+	machinesData, err := ioutil.ReadFile(workingDirPath + "/resources/machinesConfig.json")
+	attributesData, err := ioutil.ReadFile(workingDirPath + "/resources/assertionConfig.json")
+	machines := conf.MachinesConfig{}
+	attributes := conf.AssertionConfig{}
 	machinesErr := json.Unmarshal(machinesData, &machines)
 	attributesErr := json.Unmarshal(attributesData, &attributes)
 	if err != nil || machinesErr != nil || attributesErr != nil {
@@ -41,7 +43,7 @@ func main() {
 		log.Fatalln(attributesErr)
 	}
 	log.Println(machines)
-	var cw = getCloudWatchInstance()
+	var cw = utils.GetCloudWatchInstance()
 	var statistics = []string{"Average"}
 	for i := 0; i < len(machines.CloudMachines); i++ {
 		if machines.CloudMachines[i].Consider {
@@ -57,7 +59,7 @@ func main() {
 						// for l := 0; l <= len(attributes.Attributes); l++ {
 						// 	statistics[l] = attributes.Attributes[l].Value
 						// }
-						resp := getCloudWatchMetrics(cw, dimension, Namespace, metricName, statistics, startTime, endTime)
+						resp := utils.GetCloudWatchMetrics(cw, dimension, Namespace, metricName, statistics, startTime, endTime)
 						if len(resp.GetMetricStatisticsResult.Datapoints) != 0 {
 							fmt.Println(resp.GetMetricStatisticsResult.Datapoints[0].Average)
 							fmt.Println(resp.GetMetricStatisticsResult.Datapoints[0].Maximum)
@@ -76,7 +78,7 @@ func main() {
 						// for l := 0; l <= len(attributes.Attributes); l++ {
 						// 	statistics[l] = attributes.Attributes[l].Value
 						// }
-						resp := getCloudWatchMetrics(cw, dimension, Namespace, metricName, statistics, startTime, endTime)
+						resp := utils.GetCloudWatchMetrics(cw, dimension, Namespace, metricName, statistics, startTime, endTime)
 						if len(resp.GetMetricStatisticsResult.Datapoints) != 0 {
 							fmt.Println(resp.GetMetricStatisticsResult.Datapoints[0].Average)
 							fmt.Println(resp.GetMetricStatisticsResult.Datapoints[0].Maximum)

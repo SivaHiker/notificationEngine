@@ -1,4 +1,4 @@
-package main
+package utils
 
 import (
 	"fmt"
@@ -9,7 +9,7 @@ import (
 	"github.com/goamz/goamz/cloudwatch"
 )
 
-func getCloudWatchInstance() *cloudwatch.CloudWatch {
+func GetCloudWatchInstance() *cloudwatch.CloudWatch {
 	region := aws.Regions["ap-southeast-1"]
 	// namespace := "AWS/EC2"
 	// dimension := &cloudwatch.Dimension{
@@ -34,7 +34,7 @@ func getCloudWatchInstance() *cloudwatch.CloudWatch {
 	}
 }
 
-func getCloudWatchMetrics(cw *cloudwatch.CloudWatch, dimension *cloudwatch.Dimension, Namespace string, metricName string, statistics []string, startTime time.Time, endTime time.Time) *cloudwatch.GetMetricStatisticsResponse {
+func GetCloudWatchMetrics(cw *cloudwatch.CloudWatch, dimension *cloudwatch.Dimension, Namespace string, metricName string, statistics []string, startTime time.Time, endTime time.Time) *cloudwatch.GetMetricStatisticsResponse {
 	request := &cloudwatch.GetMetricStatisticsRequest{
 		Dimensions: []cloudwatch.Dimension{*dimension},
 		EndTime:    endTime,
