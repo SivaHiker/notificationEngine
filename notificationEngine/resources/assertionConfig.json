@@ -1,0 +1,22 @@
+{
+    "Attributes":[
+           {
+             "Name":"CPUUtilization",
+             "Value":"Maximum",
+             "ThresholdValue":"75",
+             "NameSpace":"AWS/EC2"
+           },
+          {
+            "Name":"MemoryUsedPercent",
+             "Value":"Average",
+             "ThresholdValue":"40",
+             "NameSpace":"preProd/Memory"
+           },
+          {
+             "Name":"CurrentLoad",
+             "Value":"Average",
+             "ThresholdValue":"4",
+             "NameSpace":"preProd/Load"
+           }
+    ]
+}

@@ -1,0 +1,111 @@
+{
+  "cloudMachines":[{
+        "type":"AWS",
+        "consider":true,
+        "mqttinstances":[{
+             "instance_ip":"192.168.0.141",
+             "instance_id":"i-0a4864ae",
+             "instance_Spec":"LARGE-32",
+             "services_deployed":"MQTT Server"
+           },
+           {
+             "instance_ip":"192.168.0.142",
+             "instance_id":"i-b948641d",
+             "instance_Spec":"LARGE-32",
+             "services_deployed":"MQTT Server"
+           },
+           {
+             "instance_ip":"192.168.0.143",
+             "instance_id":"i-514864f5",
+             "instance_Spec":"LARGE-32",
+             "services_deployed":"MQTT Server"
+           },
+           {
+             "instance_ip":"192.168.0.144",
+             "instance_id":"i-1f4864bb",
+             "instance_Spec":"LARGE-32",
+             "services_deployed":"MQTT Server"
+           }
+        ],
+         "httpinstances":[
+           {
+             "instance_ip":"192.168.0.138",
+             "instance_id":"i-e0476b44",
+             "instance_Spec":"LARGE-32",
+             "services_deployed":"HTTP Server"
+           },
+           {
+             "instance_ip":"192.168.0.45",
+             "instance_id":"i-bc637e18",
+             "instance_Spec":"LARGE-32",
+             "services_deployed":"HTTP Server"
+           },
+           {
+             "instance_ip":"192.168.0.154",
+             "instance_id":"i-fb1d005f",
+             "instance_Spec":"LARGE-32",
+             "services_deployed":"HTTP Server"
+           },
+           {
+             "instance_ip":"192.168.0.155",
+             "instance_id":"i-fa1d005e",
+             "instance_Spec":"LARGE-32",
+             "services_deployed":"HTTP Server"
+           }
+        ]},
+        {
+        "type":"GCP",
+        "consider":true,
+        "mqttinstances":[
+           {
+             "instance_ip":"192.168.0.141",
+             "instance_id":"i-32ediosm",
+             "instance_Spec":"LARGE-32",
+             "services_deployed":"MQTT Server"
+           },
+           {
+             "instance_ip":"192.168.0.142",
+             "instance_id":"i-32ediosm",
+             "instance_Spec":"LARGE-32",
+             "services_deployed":"MQTT Server"
+           },
+           {
+             "instance_ip":"192.168.0.143",
+             "instance_id":"i-32ediosm",
+             "instance_Spec":"LARGE-32",
+             "services_deployed":"MQTT Server"
+           },
+           {
+             "instance_ip":"192.168.0.144",
+             "instance_id":"i-32ediosm",
+             "instance_Spec":"LARGE-32",
+             "services_deployed":"MQTT Server"
+           }
+        ],
+         "httpinstances":[
+           {
+             "instance_ip":"192.168.0.141",
+             "instance_id":"i-32ediosm",
+             "instance_Spec":"LARGE-32",
+             "services_deployed":"MQTT Server"
+           },
+           {
+             "instance_ip":"192.168.0.142",
+             "instance_id":"i-32ediosm",
+             "instance_Spec":"LARGE-32",
+             "services_deployed":"MQTT Server"
+           },
+           {
+             "instance_ip":"192.168.0.143",
+             "instance_id":"i-32ediosm",
+             "instance_Spec":"LARGE-32",
+             "services_deployed":"MQTT Server"
+           },
+           {
+             "instance_ip":"192.168.0.144",
+             "instance_id":"i-32ediosm",
+             "instance_Spec":"LARGE-32",
+             "services_deployed":"MQTT Server"
+           }]
+  }]
+}
