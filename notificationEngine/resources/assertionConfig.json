@@ -4,19 +4,22 @@
              "Name":"CPUUtilization",
              "Value":"Maximum",
              "ThresholdValue":"75",
-             "NameSpace":"AWS/EC2"
+             "NameSpace":"AWS/EC2",
+             "dimensionName":"InstanceId"
            },
           {
             "Name":"MemoryUsedPercent",
              "Value":"Average",
              "ThresholdValue":"40",
-             "NameSpace":"preProd/Memory"
+             "NameSpace":"preProd/Memory",
+             "dimensionName":"instance_id"
            },
           {
              "Name":"CurrentLoad",
              "Value":"Average",
              "ThresholdValue":"4",
-             "NameSpace":"preProd/Load"
+             "NameSpace":"preProd/Load",
+             "dimensionName":"instance_id"
            }
     ]
 }

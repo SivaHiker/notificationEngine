@@ -6,5 +6,6 @@ type AssertionConfig struct {
 		Value          string `json:"Value"`
 		ThresholdValue string `json:"ThresholdValue"`
 		NameSpace      string `json:"NameSpace"`
+		DimensionName  string `json:"dimensionName"`
 	} `json:"Attributes"`
 }
