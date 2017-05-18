@@ -35,16 +35,33 @@ func GetTimeinSeconds(seconds string) time.Time {
 
 func SendMail(startTime time.Time, endTime time.Time, machines structConfigs.MachinesConfig, attributes structConfigs.AssertionConfig, runType string, runId int, cloudType string, previousRunid int) {
 	currentWD, err := os.Getwd()
-	data, err := ioutil.ReadFile(currentWD + "/resources/mailTemplate.html")
+	var mailData []byte
+	if "MQTT" == runType {
+		data, err := ioutil.ReadFile(currentWD + "/resources/mailTemplate-MQTT.html")
+		if err != nil {
+			fmt.Println(err)
+		}
+		mailData = data
+	} else {
+		data, err := ioutil.ReadFile(currentWD + "/resources/mailTemplate-HTTP.html")
+		if err != nil {
+			fmt.Println(err)
+		}
+		mailData = data
+	}
 	if err != nil {
 		fmt.Println(err)
 	}
-	fmt.Print(string(data))
-	var dataInString = string(data)
+	fmt.Print(string(mailData))
+	var dataInString = string(mailData)
+	var startDurationInString = dataTimeForGraphs(startTime)
+	var endDurationInString = dataTimeForGraphs(endTime)
 	dataInString = strings.Replace(dataInString, "${TestRunType}", runType, -1)
 	dataInString = strings.Replace(dataInString, "${environment}", "PreProd", -1)
 	dataInString = strings.Replace(dataInString, "${starttime}", startTime.String(), -1)
 	dataInString = strings.Replace(dataInString, "${endtime}", endTime.String(), -1)
+	dataInString = strings.Replace(dataInString, "${startDuration}", startDurationInString, -1)
+	dataInString = strings.Replace(dataInString, "${endDuration}", endDurationInString, -1)
 	var htmlTableBody = MakeHtmlBody(dataInString, machines, attributes, runType, runId, cloudType, previousRunid)
 	dataInString = strings.Replace(dataInString, "${rows}", htmlTableBody, -1)
 	var htmlSubject = makeSubject(runType, runId)
@@ -59,6 +76,7 @@ func SendMail(startTime time.Time, endTime time.Time, machines structConfigs.Mac
 	// 	InsecureSkipVerify: true,
 	// 	ServerName:         "smtp-relay.gmail.com",
 	// }
+	fmt.Println(string(msgBody))
 	err = e.Send("smtp-relay.gmail.com:587", smtp.PlainAuth("", "automationreports@hike.in", "Bharti@123", "smtp-relay.gmail.com"))
 	println(err.Error())
 
@@ -140,4 +158,15 @@ func getMetricValueFromBaseLine(i int, j int, previousRunid int, attributes stru
 		metricThresholdValue = GetMetricValueFromDB(attributes.Attributes[j].Value, previousRunid, machines.CloudMachines[0].Mqttinstances[i].InstanceIP)
 	}
 	return metricThresholdValue
+}
+
+func dataTimeForGraphs(timeDuration time.Time) string {
+
+	var splitTime = strings.Split(timeDuration.String(), " ")
+	var date = strings.Split(splitTime[0], "-")
+	var time = splitTime[1]
+	var finalDate = strings.Join(date, "")
+	fmt.Println(finalDate)
+	var finalTime = time[3:len(time)]
+	return finalTime + "_" + finalDate
 }
