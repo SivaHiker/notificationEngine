@@ -8,14 +8,14 @@ import (
 	_ "github.com/go-sql-driver/mysql"
 )
 
-func WriteDBRecordsIntoMachineTable(runid int, subrunid int, machineip string, machinetype string, cloudtype string) {
+func WriteDBRecordsIntoMachineTable(runid int, subrunid int, machineip string, machinetype string, servertype string, cloudtype string) {
 	db, err := sql.Open("mysql", "root:@tcp(127.0.0.1:3306)/loadAggregator")
 	if err != nil {
 		fmt.Print(err.Error())
 	}
 	var runidInString = strconv.Itoa(runid)
 	var subrunidInString = strconv.Itoa(subrunid)
-	var st = "insert into perf_readings(runid,subrun_id,machine_ip,machine_type,cloud_type) values(" + runidInString + "," + subrunidInString + ",\"" + machineip + "\",\"" + machinetype + "\",\"" + cloudtype + "\")"
+	var st = "insert into perf_readings(runid,subrun_id,machine_ip,machine_type,server_type,cloud_type) values(" + runidInString + "," + subrunidInString + ",\"" + machineip + "\",\"" + machinetype + "\",\"" + servertype + "\",\"" + cloudtype + "\")"
 	println(st)
 	statement, err := db.Prepare(st)
 	res, err := statement.Exec()
@@ -88,7 +88,9 @@ func GetTotalRecordsCount() int {
 	rows, err := db.Query("Select max(runid) from perf_readings")
 	if rows.Next() {
 		err := rows.Scan(&runid)
-		fmt.Println(err, runid)
+		if err != nil {
+			fmt.Println(err)
+		}
 	}
 	db.Close()
 	return runid
@@ -104,4 +106,21 @@ func UpdateRecordsIntoDB(metricName string, runid int, subrunid int, value1 stri
 	case "CurrentLoad":
 		UpdateDBRecordsForLoadIntoMachineTable(runid, subrunid, value1, value2, value3)
 	}
+}
+
+func GetMetricValueFromDB(metricType string, runid int, machine_ip string) float64 {
+	db, err := sql.Open("mysql", "root:@tcp(127.0.0.1:3306)/loadAggregator")
+	var valueNeeded float64
+	if err != nil {
+		fmt.Print(err.Error())
+	}
+	var st = "Select " + metricType + " as valueNeeded from perf_readings where runid = " + strconv.Itoa(runid) + " and machine_ip =\"" + machine_ip + "\""
+	fmt.Println(st)
+	rows, err := db.Query(st)
+	if rows.Next() {
+		err := rows.Scan(&valueNeeded)
+		fmt.Println(err, valueNeeded)
+	}
+	db.Close()
+	return valueNeeded
 }

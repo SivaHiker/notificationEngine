@@ -2,21 +2,21 @@
     "Attributes":[
            {
              "Name":"CPUUtilization",
-             "Value":"Maximum",
+             "Value":"cpu_max",
              "ThresholdValue":"75",
              "NameSpace":"AWS/EC2",
              "dimensionName":"InstanceId"
            },
           {
             "Name":"MemoryUsedPercent",
-             "Value":"Average",
+             "Value":"memory_avg",
              "ThresholdValue":"40",
              "NameSpace":"preProd/Memory",
              "dimensionName":"instance_id"
            },
           {
              "Name":"CurrentLoad",
-             "Value":"Average",
+             "Value":"load_avg",
              "ThresholdValue":"4",
              "NameSpace":"preProd/Load",
              "dimensionName":"instance_id"
