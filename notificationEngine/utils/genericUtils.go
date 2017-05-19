@@ -77,8 +77,8 @@ func SendMail(startTime time.Time, endTime time.Time, machines structConfigs.Mac
 	// 	ServerName:         "smtp-relay.gmail.com",
 	// }
 	fmt.Println(string(msgBody))
-	err = e.Send("smtp-relay.gmail.com:587", smtp.PlainAuth("", "automationreports@hike.in", "Bharti@123", "smtp-relay.gmail.com"))
-	println(err.Error())
+	err = e.Send("smtp.gmail.com:587", smtp.PlainAuth("", "automationreports@hike.in", "Bharti@123", "smtp.gmail.com"))
+	// println(err.Error())
 
 }
 
